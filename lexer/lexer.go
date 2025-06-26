@@ -35,6 +35,8 @@ type Lexer struct {
  func (l *Lexer) NextToken() token.Token {
     
      var tok token.Token 
+     
+     l.skipWhiteSpace()
 
      switch l.ch {
      case '=': 
@@ -61,6 +63,8 @@ type Lexer struct {
     default: 
     if isLetter(l.ch) { 
 	tok.Literal  = l.readIdentifier() 
+	tok.Type = token.LookupIdent(tok.Literal)
+	return tok 
     } else { 
 	tok = newToken(token.ILLEGAL, l.ch)   
     }
@@ -90,6 +94,10 @@ type Lexer struct {
      return token.Token{Type: tokenType, Literal: string(ch)} 
  }
 
+ func (l *Lexer) skipWhiteSpace() { 
+     for l.ch == ' ' || l.ch == '\t' || l.ch == '\n' || l.ch == '\r' { 
+	 l.readChar() 
+     }
 
-
+ }
 
