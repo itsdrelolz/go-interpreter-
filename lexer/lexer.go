@@ -18,7 +18,7 @@ func New(input string) *Lexer {
 func (l *Lexer) readChar() {
 
 	if l.readPosition >= len(l.input) {
-		l.ch = 0
+		l.ch = 0 // sets char as the end position byte or EOF 
 	} else {
 		l.ch = l.input[l.readPosition]
 	}
@@ -99,12 +99,12 @@ func (l *Lexer) NextToken() token.Token {
 
 func (l *Lexer) readIdentifier() string {
 
-	position := l.position
+	position := l.position // keeps track of the start of the identifier 
 
-	for isLetter(l.ch) {
+	for isLetter(l.ch) { 
 		l.readChar()
 	}
-	return l.input[position:l.position]
+	return l.input[position:l.position] // returns the start to end of the identifier 
 }
 
 func isLetter(ch byte) bool {
