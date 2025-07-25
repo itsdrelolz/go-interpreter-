@@ -30,6 +30,11 @@ type IntegerLiteral struct {
 	Value int64
 }
 
+type StringLiteral struct {
+	Token token.Token
+	Value string
+}
+
 type LetStatement struct {
 	Token token.Token // the token.Let token
 	Name  *Identifier
@@ -85,10 +90,10 @@ type FunctionLiteral struct {
 	Body       *BlockStatement
 }
 
-type CallExpression struct { 
-    Token token.Token 
-    Function Expression
-    Arguments []Expression
+type CallExpression struct {
+	Token     token.Token
+	Function  Expression
+	Arguments []Expression
 }
 
 func (p *Program) TokenLiteral() string {
@@ -166,6 +171,10 @@ func (i *Identifier) String() string { return i.Value }
 func (il *IntegerLiteral) expressionNode()      {}
 func (il *IntegerLiteral) TokenLiteral() string { return il.Token.Literal }
 func (il *IntegerLiteral) String() string       { return il.Token.Literal }
+
+func (sl *StringLiteral) expressionNode()      {}
+func (sl *StringLiteral) TokenLiteral() string { return sl.Token.Literal }
+func (sl *StringLiteral) String() string       { return sl.Token.Literal }
 
 func (pe *PrefixExpression) expressionNode()      {}
 func (pe *PrefixExpression) TokenLiteral() string { return pe.Token.Literal }
@@ -253,28 +262,25 @@ func (fl *FunctionLiteral) String() string {
 	return out.String()
 }
 
-func (ce *CallExpression) expressionNode() {} 
+func (ce *CallExpression) expressionNode() {}
 
-func (ce *CallExpression) TokenLiteral() string { return ce.Token.Literal } 
+func (ce *CallExpression) TokenLiteral() string { return ce.Token.Literal }
 
-func (ce *CallExpression) String() string { 
+func (ce *CallExpression) String() string {
 
-    
-    var out bytes.Buffer 
+	var out bytes.Buffer
 
-    args := []string{} 
+	args := []string{}
 
-    for _, a := range ce.Arguments { 
- 
-	args = append(args, a.String())
-    }
+	for _, a := range ce.Arguments {
 
+		args = append(args, a.String())
+	}
 
-    out.WriteString(ce.Function.String()) 
-    out.WriteString("(") 
-    out.WriteString(strings.Join(args, ", "))
-    out.WriteString(")")
+	out.WriteString(ce.Function.String())
+	out.WriteString("(")
+	out.WriteString(strings.Join(args, ", "))
+	out.WriteString(")")
 
-    return out.String()
+	return out.String()
 }
-

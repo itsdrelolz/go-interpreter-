@@ -4,10 +4,10 @@ import (
 	"bufio"
 	"fmt"
 	"io"
-	"monkey/lexer"
-	"monkey/parser"
 	"monkey/evaluator"
+	"monkey/lexer"
 	"monkey/object"
+	"monkey/parser"
 )
 
 const MONKEY_FACE = `            __,__
@@ -57,12 +57,12 @@ func Start(in io.Reader, out io.Writer) {
 			printParserErrors(out, p.Errors())
 			continue
 		}
-		evaluated := evaluator.Eval(program, env) 
-		if evaluated != nil { 
+		evaluated := evaluator.Eval(program, env)
+		if evaluated != nil {
 
-		io.WriteString(out, evaluated.Inspect())
-		io.WriteString(out, "\n") 
+			io.WriteString(out, evaluated.Inspect())
+			io.WriteString(out, "\n")
 
-	}
+		}
 	}
 }

@@ -10,12 +10,15 @@ import (
 type ObjectType string 
 
 const (
+
     ERROR_OBJ = "ERROR"
     INTEGER_OBJ = "INTEGER"
     BOOLEAN_OBJ = "BOOLEAN"
     NULL_OBJ = "NULL"
     RETURN_VALUE_OBJ = "RETURN_VALUE"
     FUNCTION_OBJ = "FUNCTION"
+    STRING_OBJ = "STRING"
+    BUILTIN_OBJ = "BUILTIN"
 )
 
 type Object interface { 
@@ -38,6 +41,13 @@ type ReturnValue struct {
     Value Object 
 }
 
+type BuiltInFunction func(args ...Object) Object 
+
+type Builtin struct { 
+    Fn BuiltInFunction
+}
+
+
 type Function struct { 
     Parameters []*ast.Identifier 
     Body *ast.BlockStatement
@@ -46,6 +56,10 @@ type Function struct {
 
 type Error struct { 
     Message string 
+}
+
+type String struct { 
+    Value string 
 }
 
 
@@ -119,3 +133,21 @@ func (e *Error) Type() ObjectType {
 func (e *Error) Inspect() string { 
     return "ERROR: " + e.Message  
 }
+
+func (s *String) Type() ObjectType { 
+    return STRING_OBJ 
+}
+
+func (s *String) Inspect() string { 
+    return s.Value 
+}
+
+func (b *Builtin) Type() ObjectType { 
+    return BUILTIN_OBJ
+}
+
+func (b *Builtin) Inspect() string { 
+    return "builtin function" 
+}
+
+
