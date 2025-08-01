@@ -34,7 +34,7 @@ To run the interpreter's Read-Eval-Print Loop (REPL), follow these steps:
 
 1.  Clone this repository to your local machine:
     ```bash
-    git clone https://github.com/itsdrelolz/go-interpreter-monkey.git](https://github.com/itsdrelolz/go-interpreter-monkey.git
+    git clone https://github.com/itsdrelolz/go-interpreter-monkey.git
     cd monkey
     ```
 
