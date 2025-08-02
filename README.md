@@ -29,7 +29,7 @@ To run the interpreter's Read-Eval-Print Loop (REPL), follow these steps:
 Clone this repository to your local machine:
 
 git https://github.com/itsdrelolz/go-interpreter-
-cd monkey
+cd monkey/src
 
 Run the main Go file:
 
